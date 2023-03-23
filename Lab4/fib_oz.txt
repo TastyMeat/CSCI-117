@@ -1,0 +1,148 @@
+// Haskell version of fib:
+//    fib :: Int -> Int
+//    fib 0 = 0
+//    fib 1 = 1
+//    fib x = fib (x-1) + fib (x-2)
+//
+// Rewrite fib in Oz kernel syntax using the template below, including
+// a "skip Stack" command added to the first base case, using the 
+// primitive operations {Eq X Y B}, {IntMinus X Y A}, and {IntPlus X Y A}.
+// 
+// Run through the Oz interpreter by calling
+//    runFull "declarative" "fib_oz.txt" "fib_oz.out"
+// after ghci fib_oz.txt and give a brief explanation of each of the stack outputs.
+
+local X Result Fib in
+  Fib = proc {$ X FibSum}
+    local IsZero in
+      {Eq X 0 IsZero}
+      if IsZero then
+        FibSum = 0
+        skip Stack
+      else
+        local IsOne in
+          {Eq X 1 IsOne}
+          if IsOne then
+            FibSum = 1
+          else
+            local X1 X2 Fib1 Fib2 in
+              {IntMinus X 1 X1}
+              {IntMinus X 2 X2}
+              {Fib X1 Fib1}
+              {Fib X2 Fib2}
+              {IntPlus Fib1 Fib2 FibSum}
+            end
+          end
+        end
+      end
+    end
+  end
+
+  X = 4
+  {Fib X Result}
+  skip Browse Result
+end
+
+/*
+<Terminal output>:
+Stack : "local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]local [\"EXU1\",\"EXU2\"] [EXU1 = X2,EXU2 = Fib2,\"Fib\" \"EXU1\" \"EXU2\"]local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]local [\"EXU1\",\"EXU2\"] [EXU1 = X2,EXU2 = Fib2,\"Fib\" \"EXU1\" \"EXU2\"]local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]skip/BResult"
+
+Stack : "local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]skip/BResult"
+
+Result : 3
+
+<fib_oz.out>:
+[
+  local ["X", "Result", "Fib"] [
+    Fib = proc {$ X FibSum} [
+      local ["IsZero"] [
+        local ["EXU1", "EXU2", "EXU3"] [
+          EXU1 = X, EXU2 = 0, EXU3 = IsZero,
+          "Eq" "EXU1" "EXU2" "EXU3"
+        ],
+        local ["EXU1"] [
+          EXU1 = IsZero,
+          if EXU1 then [
+            FibSum = 0,
+            skip/st
+          ] else [
+            local ["IsOne"] [
+              local ["EXU1", "EXU2", "EXU3"] [
+                EXU1 = X, EXU2 = 1, EXU3 = IsOne,
+                "Eq" "EXU1" "EXU2" "EXU3"
+              ],
+              local ["EXU1"] [
+                EXU1 = IsOne,
+                if EXU1 then [
+                  FibSum = 1
+                ] else [
+                  local ["X1", "X2", "Fib1", "Fib2"] [
+                    local ["EXU1", "EXU2", "EXU3"] [
+                      EXU1 = X, EXU2 = 1, EXU3 = X1,
+                      "IntMinus" "EXU1" "EXU2" "EXU3"
+                    ],
+                    local ["EXU1","EXU2","EXU3"] [
+                      EXU1 = X,EXU2 = 2,EXU3 = X2,
+                      "IntMinus" "EXU1" "EXU2" "EXU3"
+                    ],
+                    local ["EXU1","EXU2"] [
+                      EXU1 = X1, EXU2 = Fib1,
+                      "Fib" "EXU1" "EXU2"
+                    ],
+                    local ["EXU1","EXU2"] [
+                      EXU1 = X2, EXU2 = Fib2,
+                      "Fib" "EXU1" "EXU2"
+                    ],
+                    local ["EXU1","EXU2","EXU3"] [
+                      EXU1 = Fib1, EXU2 = Fib2, EXU3 = FibSum,
+                      "IntPlus" "EXU1" "EXU2" "EXU3"
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ],
+    X = 4,
+    local ["EXU1","EXU2"] [
+      EXU1 = X,EXU2 = Result,
+      "Fib" "EXU1" "EXU2"
+    ],
+    skip/BResult
+  ]
+]
+
+Stack 1 (Left Tree fib(0)): 
+{IntPlus} of 1 & 0      -> local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]
+{Fib} of 1              -> local [\"EXU1\",\"EXU2\"] [EXU1 = X2,EXU2 = Fib2,\"Fib\" \"EXU1\" \"EXU2\"]
+{IntPlus} of 1 & fib(1) -> local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]
+{Fib} of 2 (Right Tree) -> local [\"EXU1\",\"EXU2\"] [EXU1 = X2,EXU2 = Fib2,\"Fib\" \"EXU1\" \"EXU2\"]
+{IntPlus} of 2 & 1      -> local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]
+skip/BResult
+
+
+Stack 2 (Right Tree fib(0)): 
+{IntPlus} of 1 & 0 -> local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]
+{IntPlus} of 2 & 1 -> local [\"EXU1\",\"EXU2\",\"EXU3\"] [EXU1 = Fib1,EXU2 = Fib2,EXU3 = FibSum,\"IntPlus\" \"EXU1\" \"EXU2\" \"EXU3\"]
+skip/BResult
+
+The bottom {IntPlus} procedures from both stacks refer to the same procedure.
+
+                fib(4)
+              /        \
+        fib(3)          fib(2)
+       /      \        /     \
+    fib(2)  fib(1)  fib(1) fib(0)
+    /   \     |        |     |
+fib(1) fib(0) |        1  +  0
+   |     |    |         \   /
+   1  +  0    |           |
+    \   /     |           |
+      1       1           |
+       \     /            |
+          2       +       1
+           \             /
+                  3
+*/

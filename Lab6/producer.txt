@@ -1,0 +1,58 @@
+local Producer OddFilter Consumer in
+
+    Producer = proc {$ N Limit Out}
+        if (N < (Limit + 1)) then T N1 in
+            Out = (N|T)
+            N1 = (N + 1)
+            {Producer N1 Limit T}
+        else 
+            Out = nil
+        end
+    end
+
+    OddFilter = proc {$ P Out}
+        case P
+        of nil then 
+            Out = nil
+        [] (X|Xs) then Filtered in
+            {OddFilter Xs Filtered}
+
+            if ((X mod 2) == 0) then
+                Out = (X|Filtered)
+            else
+                Out = Filtered
+            end
+        end
+    end
+
+    Consumer = fun {$ P} in
+        case P
+        of nil then
+            0
+        [] (X|Xs) then
+            (X + {Consumer Xs})
+        end
+    end
+
+    // Example Testing
+    local N L P F C in
+        N = 0
+        L = 100 
+        
+        // [0 1 2 .. 100]
+        thread 
+            {Producer N L P} 
+            skip Browse P
+        end
+        
+        // [0 2 4 .. 100]
+        thread 
+            {OddFilter P F} 
+            skip Browse F
+        end
+        
+        thread C = {Consumer F} 
+            skip Browse C
+        end
+    end
+end

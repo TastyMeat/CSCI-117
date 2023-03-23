@@ -1,0 +1,124 @@
+deal :: [a] -> ([a],[a])
+merge :: Ord a => [a] -> [a] -> [a]
+ms :: Ord a => [a] -> [a]
+
+data BList a = Nil | Snoc (BList a) a deriving (Show,Eq)
+cons :: a -> BList a -> BList a
+toBList :: [a] -> BList a
+snoc :: [a] -> a -> [a]
+fromBList :: BList a -> [a]
+
+data Tree a = Empty | Node a (Tree a) (Tree a) deriving (Show, Eq)
+num_empties :: Tree a -> Int
+num_nodes :: Tree a -> Int
+insert_left :: a -> Tree a -> Tree a
+insert_right :: a -> Tree a -> Tree a
+sum_nodes :: Num a => Tree a -> a
+inorder :: Tree a -> [a]
+
+data Tree2 a = Leaf a | Node2 a (Tree2 a) (Tree2 a) deriving Show
+num_elts :: Tree2 a -> Int
+sum_nodes2 :: Num a => Tree2 a -> a
+inorder2 :: Tree2 a -> [a]
+conv21 :: Tree2 a -> Tree a
+
+toBList' :: [a] -> BList a
+fromBList' :: BList a -> [a]
+sum_nodes' :: Num a => Tree a -> a
+num_empties' :: Tree a -> Int
+num_nodes' :: Tree a -> Int
+sum_nodes2' :: Num a => Tree2 a -> a
+inorder2' :: Tree2 a -> [a]
+
+{-
+my_map :: (a -> b) -> [a] -> [b]
+--my_map b [a] = helper 
+
+
+my_all :: (a -> Bool) -> [a] -> Bool
+my_all = undefined
+
+my_any :: (a -> Bool) -> [a] -> Bool
+my_any = undefined
+
+my_filter :: (a -> Bool) -> [a] -> [a]
+my_filter = undefined
+
+my_dropWhile :: (a -> Bool) -> [a] -> [a]
+my_dropWhile = undefined
+
+my_takeWhile :: (a -> Bool) -> [a] -> [a]
+my_takeWhile = undefined
+
+my_break :: (a -> Bool) -> [a] -> ([a], [a])
+my_break = undefined
+
+-- Implement the Prelude functions and, or, concat using foldr
+
+my_and :: [Bool] -> Bool
+my_and = undefined
+
+my_or :: [Bool] -> Bool
+my_or = undefined
+
+my_concat :: [[a]] -> [a]
+my_concat = undefined
+
+-- Implement the Prelude functions sum, product, reverse using foldl
+
+my_sum :: Num a => [a] -> a
+my_sum = undefined
+
+my_product :: Num a => [a] -> a
+my_product = undefined
+
+my_reverse :: [a] -> [a]
+my_reverse = undefined
+
+
+
+---- Part 4: Extra Credit ----------------
+
+-- Convert a Tree into an equivalent Tree2, IF POSSIBLE. That is, given t1,
+-- return t2 such that conv21 t2 = t1, if it exists. (In math, this is called
+-- the "inverse image" of the function conv21.)  Thus, if conv21 t2 = t1, then
+-- it should be that conv 12 t1 = Just t2. If there does not exist such a t2,
+-- then conv12 t1 = Nothing. Do some examples on paper first so you can get a
+-- sense of when this conversion is possible.
+conv12 :: Tree a -> Maybe (Tree2 a)
+conv12 = undefined
+
+
+-- Binary Search Trees. Determine, by making only ONE PASS through a tree,
+-- whether or not it's a Binary Search Tree, which means that for every
+-- Node a t1 t2 in the tree, every element in t1 is strictly less than a and
+-- every element in t2 is strictly greater than a. Complete this for both
+-- Tree a and Tree2 a.
+
+-- Hint: use a helper function that keeps track of the range of allowable
+-- element values as you descend through the tree. For this, use the following
+-- extended integers, which add negative and positvie infintiies to Int:
+
+data ExtInt = NegInf | Fin Int | PosInf deriving Eq
+
+instance Show ExtInt where
+  show NegInf     = "-oo"
+  show (Fin n) = show n
+  show PosInf     = "+oo"
+
+instance Ord ExtInt where
+  compare NegInf  NegInf  = EQ
+  compare NegInf  _       = LT
+  compare (Fin n) (Fin m) = compare n m
+  compare (Fin n) PosInf  = LT
+  compare PosInf  PosInf  = EQ
+  compare _       _       = GT
+  -- Note: defining compare automatically defines <, <=, >, >=, ==, /=
+  
+bst :: Tree Int -> Bool
+bst = undefined
+    
+bst2 :: Tree2 Int -> Bool
+bst2 = undefined
+
+-}

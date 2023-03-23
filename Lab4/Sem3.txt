@@ -1,0 +1,140 @@
+// Run this program through the Oz interpreter by calling
+//    runFull "declarative" "Sem3.txt" "Sem3.out"
+// Explain the resulting store
+
+local P1 P2 K1 K2 A1 A2 A3 A4 DB1 DB2 F1 F2 F3 F4 in
+	P1 = person(kid:K1 age:A1 dob:DB1 food:F3)
+	P2 = person(kid:K2 age:A2 dob:DB2 food:F4)
+	K1 = kid(age:A3 food:F1)
+	K2 = kid(age:A4 food:F2)
+	A3 = 12
+	F2 = spaghetti()
+	A1 = 54
+	DB2 = 1978
+	P1 = P2
+    skip Full
+end
+
+/*
+<Terminal output>:
+Store : ((31, 18, 33, 19), spaghetti()), 
+((30, 14, 32, 15), 12), 
+((22, 10, 26, 11), kid(age:30 food:31)), 
+((25, 20, 29, 21), Unbound), 
+((24, 16, 28, 17), 1978), 
+((23, 12, 27, 13), 54), 
+((8, 9), person(age:23 dob:24 food:25 kid:22)), 
+((1), Primitive Operation), 
+((2), Primitive Operation), 
+((3), Primitive Operation), 
+((4), Primitive Operation), 
+((5), Primitive Operation), 
+((6), Primitive Operation), 
+((7), Primitive Operation)
+
+Mutable Store: Empty
+Current Environment : ("P1" -> 8, "P2" -> 9, "K1" -> 10, "K2" -> 11, "A1" -> 12, "A2" -> 13, "A3" -> 14, "A4" -> 15, "DB1" -> 16, "DB2" -> 17, "F1" -> 18, "F2" -> 19, "F3" -> 20, "F4" -> 21, "IntPlus" -> 1, "IntMinus" -> 2, "Eq" -> 3, "GT" -> 4, "LT" -> 5, "Mod" -> 6, "IntMultiply" -> 7)
+Stack : ""
+
+<Sem3.out>:
+[
+	local ["P1", "P2", "K1", "K2", "A1", "A2", "A3", "A4", "DB1", "DB2", "F1", "F2", "F3", "F4"] [
+		local ["EXU1", "EXU2", "EXU3", "EXU4"] [
+			EXU1 = K1, EXU2 = A1, EXU3 = DB1, EXU4 = F3,
+			P1 = person(kid:EXU1 age:EXU2 dob:EXU3 food:EXU4)
+		],
+		local ["EXU1", "EXU2", "EXU3", "EXU4"] [
+			EXU1 = K2, EXU2 = A2, EXU3 = DB2, EXU4 = F4,
+			P2 = person(kid:EXU1 age:EXU2 dob:EXU3 food:EXU4)
+		],
+		local ["EXU1", "EXU2"] [
+			EXU1 = A3, EXU2 = F1,
+			K1 = kid(age:EXU1 food:EXU2)
+		],
+		local ["EXU1", "EXU2"] [
+			EXU1 = A4, EXU2 = F2,
+			K2 = kid(age:EXU1 food:EXU2)
+		],
+		A3 = 12,
+		F2 = spaghetti(),
+		A1 = 54,
+		DB2 = 1978,
+		P1 = P2,
+		skip/f
+	]
+]
+
+Local variables are declared and point to locations:
+	"P1" -> 8
+	"P2" -> 9
+	"K1" -> 10
+	"K2" -> 11
+	"A1" -> 12
+	"A2" -> 13
+	"A3" -> 14
+	"A4" -> 15
+	"DB1" -> 16
+	"DB2" -> 17
+	"F1" -> 18
+	"F2" -> 19
+	"F3" -> 20
+	"F4" -> 21
+Hidden local variables "EXU1", "EXU2", "EXU3", & "EXU4" are declared and point to locations 10, 12, 16, & 20 respectively after assigning their values to equate "K1", "A1", "DB1", & "F3".
+"P1" (location 8) is bounded to a person data-type, consisting members of locations 10, 12, 16, & 20, where "EXU1", "EXU2", "EXU3", & "EXU4" are pointing to.
+Scope of "EXU1", "EXU2", "EXU3", & "EXU4" ends.
+Hidden local variables "EXU1", "EXU2", "EXU3", & "EXU4" are declared and point to locations 11, 13, 17, & 21 respectively after assigning their values to equate "K2", "A2", "DB2", & "F4".
+"P2" (location 9) is bounded to a person data-type, consisting members of locations 11, 13, 17, & 21, where "EXU1", "EXU2", "EXU3", & "EXU4" are pointing to.
+Scope of "EXU1", "EXU2", "EXU3", & "EXU4" ends.
+Hidden local variables "EXU1" & "EXU2" are declared and point to locations 14 & 18 respectively after assigning their values to equate "A3" & "F1".
+"K1" (location 10) is bounded to a kid data-type, consisting members of locations 14 & 18, where "EXU1" & "EXU2" are pointing to.
+Scope of "EXU1" & "EXU2" ends.
+Hidden local variables "EXU1" & "EXU2" are declared and point to locations 15 & 19 respectively after assigning their values to equate "A4" & "F2".
+"K2" (location 11) is bounded to a kid data-type, consisting members of locations 15 & 19, where "EXU1" & "EXU2" are pointing to.
+Scope of "EXU1" & "EXU2" ends.
+"A3" (location 14) is bounded to the value of 12.
+"F2" (location 19) is bounded to a spaghetti data-type.
+"A1" (location 12) is bounded to the value of 54.
+"DB2" (location 17) is bounded to the value of 1978.
+"P1" & "P2" are united to a same value without error: (uB = Unbound)
+	P1 = person(kid:kid(age:<A3 = 12> food:<F1 = uB         >) age:<A1 = 54> dob:<DB1 = uB  > food:<F3 = uB>)
+														+
+	P2 = person(kid:kid(age:<A4 = uB> food:<F2 = spaghetti()>) age:<A2 = uB> dob:<DB2 = 1978> food:<F4 = uB>)
+
+	where:
+		A4 is bounded to the value of A3 (locations 14 & 15 -> 12)
+		F1 is bounded to the value of F2 (locations 18 & 19 -> spaghetti())
+		A2 is bounded to the value of A1 (locations 12 & 13 -> 54)
+		DB2 is bounded to the value of DB1 (locations 16 & 17 -> 1978)
+		F3 & F4 remain Unbound (locations 20 & 21 -> Unbound)
+	uniting the person data-types resulted in new locations bounded to the united values for the members:
+	"P1":
+		22 {kid(...)}
+		23 {54}
+		24 {1978}
+		25 {uB}
+	
+	"P2":
+		26 {kid(...)}
+		27 {54}
+		28 {1978}
+		29 {uB}
+
+	"K1":
+		30 {12}
+		31 {spaghetti()}
+
+	"K2":
+		32 {12}
+		33 {spaghetti()}
+	then "K1" & "P1" is prioritized over "K2" & "P2" so the locations for "K2" & "P2" are not referenced.
+The skip/f command displays all variables, locations, and values used in the environment up to this point; Stack is empty.
+Scope of "P1", "P2", "K1", "K2", "A1", "A2", "A3", "A4", "DB1", "DB2", "F1", "F2", "F3", & "F4" ends.
+
+"IntPlus" points to location 1 and is bounded to a primitive operation.
+"IntMinus" points to location 2 and is bounded to a primitive operation.
+"Eq" points to location 3 and is bounded to a primitive operation.
+"GT" points to location 4 and is bounded to a primitive operation.
+"LT" points to location 5 and is bounded to a primitive operation.
+"Mod" points to location 6 and is bounded to a primitive operation.
+"IntMultiply" points to location 7 and is bounded to a primitive operation.
+*/

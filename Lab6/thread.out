@@ -1,0 +1,13 @@
+[local ["B"] [
+    thread [
+        B = true()
+    ],
+    local ["EXU1"] [
+        EXU1 = B,
+        if EXU1 then [
+            skip/BB
+        ] else [
+            skip
+        ]
+    ]
+]]

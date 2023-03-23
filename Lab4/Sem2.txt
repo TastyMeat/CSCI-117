@@ -1,0 +1,106 @@
+// Run this program through the Oz interpreter by calling
+//    runFull "declarative" "Sem2.txt" "Sem2.out"
+// Explain the resulting store
+
+local Max Y in
+  Max = proc {$ X}
+    local B in 
+        {GT X Y B}
+        if B then
+          skip Browse X
+        else
+          skip Browse Y
+        end
+    end
+  end
+  Y = 3
+  local X Y in 
+    Y = 6
+    X = 4
+    skip Full
+    {Max X}
+  end
+end
+
+/*
+<Terminal output>:
+Store : ((10), 4), 
+((11), 6),
+((8), proc(["X"],[local ["B"] [local ["EXU1","EXU2","EXU3"] [EXU1 = X,EXU2 = Y,EXU3 = B,"GT" "EXU1" "EXU2" "EXU3"],local ["EXU1"] [EXU1 = B,if EXU1 then [skip/BX] else [skip/BY]]]],[("Y",9),("GT",4)])),
+((9), 3),
+((1), Primitive Operation),
+((2), Primitive Operation),
+((3), Primitive Operation),
+((4), Primitive Operation),
+((5), Primitive Operation),
+((6), Primitive Operation), 
+((7), Primitive Operation)
+
+Mutable Store: Empty
+Current Environment : ("X" -> 10, "Y" -> 11, "Max" -> 8, "Y" -> 9, "IntPlus" -> 1, "IntMinus" -> 2, "Eq" -> 3, "GT" -> 4, "LT" -> 5, "Mod" -> 6, "IntMultiply" -> 7)
+Stack : "local [\"EXU1\"] [EXU1 = X,\"Max\" \"EXU1\"]"
+
+X : 4
+
+<Sem2.out>:
+[
+  local ["Max", "Y"] [
+    Max = proc {$ X} [
+      local ["B"] [
+        local ["EXU1", "EXU2", "EXU3"] [
+          EXU1 = X, EXU2 = Y, EXU3 = B,
+          "GT" "EXU1" "EXU2" "EXU3"
+        ],
+        local ["EXU1"] [
+          EXU1 = B,
+          if EXU1 then 
+            [skip/BX] 
+          else 
+            [skip/BY]
+        ]
+      ]
+    ],
+    Y = 3,
+    local ["X", "Y"] [
+      Y = 6, X = 4,
+      skip/f,
+      local ["EXU1"] [
+        EXU1 = X,
+        "Max" "EXU1"
+      ]
+    ]
+  ]
+]
+
+Local variables "Max" & "Y" are declared and point to locations 8 & 9.
+"Max" (location 8) is bounded to an anonymous procedure with argument variable "X".
+Within the scope of the procedure, local variable "B" is declared.
+Hidden local variables "EXU1", "EXU2", & "EXU3" are declared and point to locations (?), 9, & (?) respectively after assigning their values to equate "X", "Y", & "B".
+Procedure "GT" which points to location 4 and bounded to a primitive operation, is called with arguments of "EXU1" & "EXU2" (location 9) and return location of "EXU3".
+"EXU3" and "B" will be bounded to the return value of the "GT" procedure that performs a greater-than evaluation between values at "EXU1" & location 9.
+Scope of "EXU1", "EXU2", & "EXU3" end.
+Hidden local variable "EXU1" is declared and has its value equate to "B".
+In the if-statement on "EXU1", skip Browse X will be called if evaluated to true, whereas skip Browse Y (location 9) will be called if evaluated to false.
+Scope of "EXU1" ends.
+Scope of "B" ends.
+Scope of anonymous procedure definition ends.
+"Y" (location 9) is bounded to the value of 3.
+Local variables "X" & "Y" are declared and point to locations 10 & 11.
+"Y" (location 11) is bounded to the value of 6.
+"X" (location 10) is bounded to the value of 4.
+The skip/f command displays all variables, locations, and values used in the environment up to this point; Stack is left with the operation {Max X}.
+Hidden local variable "EXU1" is declared and points to locations 10 after assigning its value to equate "X".
+Procedure "Max" which points to location 8 and bounded to a closure defined above, is called with argument of location 10, where variable "EXU1" points to.
+Since 4("X") is greater than 3("Y"), the Browse command displays "X : 4" in the terminal.
+Scope of "EXU1" ends.
+Scope of "X" & "Y" (location 11) ends.
+Scope of "Max" & "Y" ends.
+
+"IntPlus" points to location 1 and is bounded to a primitive operation.
+"IntMinus" points to location 2 and is bounded to a primitive operation.
+"Eq" points to location 3 and is bounded to a primitive operation.
+"GT" points to location 4 and is bounded to a primitive operation.
+"LT" points to location 5 and is bounded to a primitive operation.
+"Mod" points to location 6 and is bounded to a primitive operation.
+"IntMultiply" points to location 7 and is bounded to a primitive operation.
+*/

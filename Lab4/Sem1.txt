@@ -1,0 +1,87 @@
+// Run this program through the Oz interpreter by calling
+//    runFull "declarative" "Sem1.txt" "Sem1.out"
+// Explain the resulting store
+
+local X in
+  local Y in
+    X = 1
+    Y = pair(1:X 2:X)
+    case Y of pair(1:Z 2:W) then 
+      local S in 
+        {IntPlus Z W S}
+        skip Full
+      end
+      else
+        skip Basic
+    end
+  end
+end
+
+/*
+<Terminal output>:
+Store : ((15, 12), 2), 
+((14, 13, 11, 10, 8), 1),
+((9), pair(1:10 2:11)),
+((1), Primitive Operation),
+((2), Primitive Operation),
+((3), Primitive Operation),
+((4), Primitive Operation),
+((5), Primitive Operation),
+((6), Primitive Operation),
+((7), Primitive Operation)
+
+Mutable Store: Empty
+Current Environment : ("S" -> 12, "Z" -> 10, "W" -> 11, "Y" -> 9, "X" -> 8, "IntPlus" -> 1, "IntMinus" -> 2, "Eq" -> 3, "GT" -> 4, "LT" -> 5, "Mod" -> 6, "IntMultiply" -> 7)
+Stack : ""
+
+<Sem1.out>:
+[
+  local ["X"] [
+    local ["Y"] [
+      X = 1,
+      local ["EXU1", "EXU2"] [
+        EXU1 = X, EXU2 = X,
+        Y = pair(1:EXU1 2:EXU2)
+      ],
+      case Y of pair(1:Z 2:W) then [
+        local ["S"] [
+          local ["EXU1", "EXU2", "EXU3"] [
+            EXU1 = Z, EXU2 = W, EXU3 = S,
+            "IntPlus" "EXU1" "EXU2" "EXU3"
+          ],
+          skip/f
+        ]
+      ] else [
+        skip
+      ]
+    ]
+  ]
+]
+
+Local variable "X" is declared and points to location 8.
+Local variable "Y" is declared and points to location 9.
+"X" (location 8) is bounded to the value of 1. 
+Hidden local variables "EXU1" & "EXU2" are declared and point to locations 10 & 11, which then also bind to 1 after assigning their values to equate "X".
+"Y" (location 9) is bounded to a pair data-type, consisting members of locations 10 & 11, where "EXU1" & "EXU2" are pointing to.
+Scope of "EXU1" & "EXU2" ends.
+In the case "Y" statement, a pair data-type with variables "Z" & "W" is declared for pattern-matching. 
+The pattern-matching succeeded and "Z" & "W" now points to locations 10 & 11, which are the locations of "Y"'s pair members.
+Within the scope of the succeeded case, local variable "S" is declared and points to location 12.
+Hidden local variables "EXU1", "EXU2", & "EXU3" are declared and point to locations 10, 11, & 12 respectively after assigning their values to equate "Z", "W", & "S".
+Procedure "IntPlus" which points to location 1 and bounded to a primitive operation, is called with arguments of location 10 & 11 and return location of 12, where variables "EXU1", "EXU2", & "EXU3" point to.
+"EXU3" and "S" (location 12) is bounded to the value of 2, which is the return value of the "IntPlus" procedure that performs addition of values at locations 10 & 11.
+Scope of "EXU1", "EXU2", & "EXU3" ends.
+The skip/f command displays all variables, locations, and values used in the environment up to this point; Stack is empty.
+Scope of "S" ends.
+Scope of case "Y" statement ends.
+Scope of "Y" ends.
+Scope of "X" ends.
+
+"IntPlus" points to location 1 and is bounded to a primitive operation.
+"IntMinus" points to location 2 and is bounded to a primitive operation.
+"Eq" points to location 3 and is bounded to a primitive operation.
+"GT" points to location 4 and is bounded to a primitive operation.
+"LT" points to location 5 and is bounded to a primitive operation.
+"Mod" points to location 6 and is bounded to a primitive operation.
+"IntMultiply" points to location 7 and is bounded to a primitive operation.
+*/

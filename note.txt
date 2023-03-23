@@ -1,0 +1,29 @@
+fun {Generate N}
+    fun {$} {N # {Generate (N + 1)}} end
+end
+
+fun {Zip X Y}
+    fun {$}
+        (B # BS) = {X} in 
+        {B # {Zip Y BS}}
+    end
+end
+
+fun {Take N Ns}
+    if (N > 0) then
+        (X # Xr) = {Xs} in
+        (X | {Take (N - 1) Xr})
+    else
+        nil
+end
+
+fun {H}
+    1 # {Merge ...}
+end
+
+fun {Merge Xs Ys}
+    fun {$}
+        ...
+        (X # {Merge ...})
+    end
+end

@@ -1,0 +1,4 @@
+local B in
+  B = thread true end
+  if B then skip Browse B end
+end
