@@ -1,0 +1,247 @@
+{
+  "main": {
+    "id": "5c4005f99f994158",
+    "type": "split",
+    "children": [
+      {
+        "id": "e9a604b960c828c6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a26b34556a1d84dd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Defining Practical Programming Languages.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "aa54cabad5a2588b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Kernel to Practical Language.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "fe9370d934ff3819",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Kernel Language Semantics.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "28a30baa1e43c7c4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Single Assignment Store.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "6df1e5bd9b34f0d7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Memory Use Cycle.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "31535d4d8ab487bc",
+    "type": "split",
+    "children": [
+      {
+        "id": "8dd1e9794fb6969d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1a6007fe9d4d5f46",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byCreatedTime"
+              }
+            }
+          },
+          {
+            "id": "e7982f974933bc9c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "524abb5f72a80924",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 442.5
+  },
+  "right": {
+    "id": "d2ccbe5967fee7b6",
+    "type": "split",
+    "children": [
+      {
+        "id": "9716b9cd8bc2347f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "78d097602da5f5ca",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Defining Practical Programming Languages.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "703307c7c7308058",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Defining Practical Programming Languages.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "118bea6301eedbbc",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "ff45770e2f1d658e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Defining Practical Programming Languages.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "a26b34556a1d84dd",
+  "lastOpenFiles": [
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Data Driven Concurrency/Data Driven Concurrency.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Lazy Execution/By-need Trigger.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Lazy Execution/Lazy Execution.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Lazy Execution/Class Notes - Lazy Execution.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Declarative Concurrency.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Streams.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Threads.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Quantum Scheduling.md",
+    "Concepts, techniques and Models of Computer Programming/media/memory block life cycle.png",
+    "Concepts, techniques and Models of Computer Programming/media/procedure (non syntactic sugar).png",
+    "Concepts, techniques and Models of Computer Programming/media/execution state.png",
+    "Concepts, techniques and Models of Computer Programming/media/simple execution.png",
+    "Concepts, techniques and Models of Computer Programming/media/basic operations.png",
+    "Concepts, techniques and Models of Computer Programming/media/type hierarchy.png",
+    "Concepts, techniques and Models of Computer Programming/media/value expression in DKL.png",
+    "Concepts, techniques and Models of Computer Programming/media/declerative kernel language.png",
+    "Concepts, techniques and Models of Computer Programming/media/variable-variable binding.png",
+    "Concepts, techniques and Models of Computer Programming/media/variable identifier.png",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Kernel Language Semantics.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/procedural abstraction definitions.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Memory Use Cycle.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/What is happening in Last Call Optimization.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Types of Suspendable Statements.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Lexical Scoping.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Types of Non-Suspendable Statements.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Closures(Procedure Values).md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Defining Practical Programming Languages.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Declerative Computation Model.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Single Assignment Store.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Garbage Collection.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/Basic Types.md",
+    "Concepts, techniques and Models of Computer Programming/Questions.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Language.md",
+    "Untitled",
+    "Prolog/Prolog.md",
+    "Kernel to Practical Language.md",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff/What is happening in procedures.md",
+    "Untitled.canvas",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Kernel Stuff",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model/Defining Practical Programming Languages",
+    "Prolog",
+    "Concepts, techniques and Models of Computer Programming/Ch 2 Declarative Computation Model",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Lazy Execution",
+    "Concepts, techniques and Models of Computer Programming/Ch 4 Declarative Concurrency/Data Driven Concurrency",
+    "Concepts, techniques and Models of Computer Programming/media",
+    "Concepts, techniques and Models of Computer Programming/Declarative Concurrency/Types",
+    "Concepts, techniques and Models of Computer Programming"
+  ]
+}

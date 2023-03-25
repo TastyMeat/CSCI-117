@@ -10,7 +10,7 @@ fun {Zip X Y}
     fun {$} 
         (V#F) = {X} in
         (V#{Zip Y F})
-  end
+    end
 end
 
 // Testing

@@ -41,10 +41,10 @@ OrG =  {GateMaker fun {$ X Y}
         
 fun {IntToNeed L}
    case L
-   of nil then nil
-   [] (X|Xs) then ByNeedValue in
-      byNeed fun {$} X end ByNeedValue 
-      (ByNeedValue|{IntToNeed Xs})
+      of nil then nil
+      [] (X|Xs) then ByNeedValue in
+         byNeed fun {$} X end ByNeedValue 
+         (ByNeedValue|{IntToNeed Xs})
    end
 end
 
@@ -54,19 +54,19 @@ fun {MulPlex A B S} SelectA SelectB in
    {OrG SelectA SelectB}
 end
 
-  A = {IntToNeed [0 1 1 0 0 1]}
-  B = {IntToNeed [1 1 1 0 1 0]}
-  S = [1 0 1 0 1 1]
-  Out = {MulPlex A B S}
+A = {IntToNeed [0 1 1 0 0 1]}
+B = {IntToNeed [1 1 1 0 1 0]}
+S = [1 0 1 0 1 1]
+Out = {MulPlex A B S}
 
   // run a loop so the MulPlex threads can finish before displaying Out
-  local Loop in
-     proc {Loop X}
-        if (X == 0) then skip Basic
-        else {Loop (X-1)} end
-     end
-    {Loop 1000}
-  end
+local Loop in
+   proc {Loop X}
+      if (X == 0) then skip Basic
+      else {Loop (X-1)} end
+   end
+   {Loop 1000}
+end
 
   skip Browse Out
   skip Full

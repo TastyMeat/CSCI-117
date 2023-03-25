@@ -1,0 +1,23 @@
+- **Conditional** (if)
+	- semantic statement: `(if ⟨x⟩ then ⟨s⟩1 else ⟨s⟩2 end, E)`
+	- 2 main actions:
+		- activation condition is true (E(⟨x⟩) is determined): 
+			- If E(⟨x⟩) not boolean raise an error
+			- If E(⟨x⟩) true push `(⟨s⟩1, E)` on the stack.
+			- If E(⟨x⟩) false push `(⟨s⟩2, E)` on the stack.
+		- activation condition is false: execution step suspended, stop temporarily until condition is met
+- **Procedure application**
+	- semantic statement: `({⟨x⟩ ⟨y⟩1 ... ⟨y⟩n}, E)`
+	- 2 main actions:
+		- activation condition is true (E(⟨x⟩) is determined): 
+			- If E(⟨x⟩) not procedure value/ procedure with a number of arguments different from n, raise an error
+			- If E(⟨x⟩) has `(proc { $ ⟨z⟩1 ... ⟨z⟩n} ⟨s⟩ end, CE)`
+				- push `(⟨s⟩, CE + {⟨z⟩1 → E(⟨y⟩1), ..., ⟨z⟩n → E(⟨y⟩n)})`
+		- activation condition is false: suspend execution
+- **Pattern Matching** (case)
+	- semantic statement: `(case ⟨x⟩ of ⟨literal⟩(⟨feature⟩1: ⟨x⟩1 ... ⟨feature⟩n: ⟨x⟩n) then ⟨s⟩1 else ⟨s⟩2 end, E)`
+	- 2 main actions:
+		- activation condition is true (E(⟨x⟩) is determined): 
+			- If the label of `E(⟨x⟩)` is `⟨literal⟩` and its arity is `[⟨feat⟩1...⟨feat⟩n]`
+			- push `(⟨s⟩1, E + {⟨x⟩1 → E(⟨x⟩).⟨feat⟩1, ..., ⟨x⟩n → E(⟨x⟩).⟨feat⟩n})`
+		- activation condition is false: suspend execution

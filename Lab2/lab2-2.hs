@@ -14,7 +14,7 @@
 -- deal (1:[2..7]) above to get an idea of how to approach the recursion
 deal :: [a] -> ([a],[a])
 deal [] = ([],[])
-deal (x:xs) = let (ys,zs) = deal xs in (x:zs, ys)
+deal (x:xs) = (x:zs, ys) where (ys,zs) = deal xs
 {-
 ghci> deal []
 ([],[])
@@ -31,7 +31,7 @@ merge [] ys = ys
 merge xs [] = xs
 merge (x:xs) (y:ys)
   | x <= y = x : merge xs (y:ys)
-  | x > y  = y : merge (x:xs) ys
+  | otherwise = y : merge (x:xs) ys
 {-
 ghci> merge [] []
 []
@@ -47,7 +47,7 @@ ms :: Ord a => [a] -> [a]
 ms [] = []
 ms [x] = [x]
 -- general case: deal, recursive call, merge
-ms xs = let (ys, zs) = deal xs in merge (ms ys) (ms zs)
+ms xs = merge (ms ys) (ms zs) where (ys, zs) = deal xs
 {-
 ghci> ms []
 []
@@ -487,7 +487,7 @@ ghci> my_takeWhile (3 >) [1..5]
 
 my_break :: (a -> Bool) -> [a] -> ([a], [a])
 my_break _ [] = ([], [])
-my_break f (x:xs) | not (f x) = let (ys,zs) = my_break f xs in (x:ys , zs)
+my_break f (x:xs) | not (f x) = (x:ys , zs) where (ys,zs) = my_break f xs
                   | otherwise = ([], x:xs)
 {-
 ghci> my_break (3 <) []    
@@ -583,7 +583,13 @@ ghci> my_reverse [1..4]
 -- then conv12 t1 = Nothing. Do some examples on paper first so you can get a
 -- sense of when this conversion is possible.
 conv12 :: Tree a -> Maybe (Tree2 a)
-conv12 = undefined
+conv12 Empty = Nothing
+conv12 (Node x Empty Empty) = Just (Leaf x)
+conv12 (Node _ Empty (Node _ _ _)) = Nothing
+conv12 (Node _ (Node _ _ _) Empty) = Nothing
+conv12 (Node x t1 t2) = case (conv12 t1, conv12 t2) of
+                          (Just t1', Just t2') -> Just (Node2 x t1' t2')
+                          _ -> Nothing
 
 
 -- Binary Search Trees. Determine, by making only ONE PASS through a tree,
@@ -613,7 +619,10 @@ instance Ord ExtInt where
   -- Note: defining compare automatically defines <, <=, >, >=, ==, /=
   
 bst :: Tree Int -> Bool
-bst = undefined
+bst t = go t NegInf PosInf where
+  go :: Tree Int -> ExtInt -> ExtInt -> Bool
+  go Empty _ _ = True
+  go (Node x t1 t2) low high = low < fx && fx < high && go t1 low fx && go t2 fx high where fx = Fin x
     
 bst2 :: Tree2 Int -> Bool
 bst2 = undefined

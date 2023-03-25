@@ -1,0 +1,1 @@
+Function with 0 arguments
