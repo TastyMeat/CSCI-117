@@ -14,7 +14,7 @@
 -- deal (1:[2..7]) above to get an idea of how to approach the recursion
 deal :: [a] -> ([a],[a])
 deal [] = ([],[])
-deal (x:xs) = (x:zs, ys) where (ys,zs) = deal xs
+deal (x:xs) = (x:zs, ys) where (ys, zs) = deal xs
 {-
 ghci> deal []
 ([],[])

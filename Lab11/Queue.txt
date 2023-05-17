@@ -1,38 +1,37 @@
 local NewQueue Out in
-    fun {NewQueue Capacity}
-        local Content Size Push Pop IsEmpty SlotsAvailable in
-            proc {Push Value} C = @Content NewBack in
-                if (@Size < Capacity) then
-                    case C of (List # Back) then
-                        Size := (@Size + 1)
-                        Back = (Value|NewBack)
-                        Content := (List # NewBack)
-                    end
-                end
-            end
-
-            fun {Pop} C = @Content Ub in
-                if (@Size > 0) then
-                    case C of (List # Back) then
-                        case List of (X|Xs) then
-                            Size := (@Size - 1)
-                            Content := (Xs # Back)
-                            X
-                        end
-                    end
-                end
-            end
-
-            fun {IsEmpty} (@Size == 0) end
-
-            fun {SlotsAvailable} (Capacity - @Size) end 
-            
-            local Ub in
-                newCell (Ub # Ub) Content
-            end
-            newCell 0 Size
-            ops(push:Push pop:Pop isEmpty:IsEmpty avail:SlotsAvailable)
+    fun {NewQueue Capacity} Content Size Push Pop IsEmpty SlotsAvailable in
+        local Ub in
+            newCell (Ub # Ub) Content
         end
+        newCell 0 Size
+        
+        proc {Push Value} C = @Content NewBack in
+            if (@Size < Capacity) then
+                case C of (List # Back) then
+                    Size := (@Size + 1)
+                    Back = (Value|NewBack)
+                    Content := (List # NewBack)
+                end
+            end
+        end
+
+        fun {Pop} C = @Content Ub in
+            if (@Size > 0) then
+                case C of (List # Back) then
+                    case List of (X|Xs) then
+                        Size := (@Size - 1)
+                        Content := (Xs # Back)
+                        X
+                    end
+                end
+            end
+        end
+
+        fun {IsEmpty} (@Size == 0) end
+
+        fun {SlotsAvailable} (Capacity - @Size) end 
+        
+        ops(push:Push pop:Pop isEmpty:IsEmpty avail:SlotsAvailable)
     end
 
     local S Pu Po IsE Av A1 A2 B1 B2 V1 V2 V3 Out in
