@@ -1,0 +1,92 @@
+local SumListS SumList Out1 Out2 in
+
+    // Declarative Recursive
+    fun {SumList L}
+        case L 
+        of nil then 0
+        [] (X|Xs) then (X + {SumList Xs})
+        end
+    end
+
+    // Stateful Iterative
+    fun {SumListS L} C Go in
+        newCell 0 C
+
+        proc {Go L}
+            case L of (X|Xs) then
+                C := (@C + X)
+                {Go Xs}
+            end
+        end
+
+        {Go L}
+        @C
+    end
+
+    //Out1 = {SumList [1 2 3 4]}
+    Out2 = {SumListS [1 2 3 4]}
+    //skip Browse Out1
+    skip Browse Out2
+    skip Full
+end
+// runFull "stateful" "Lab11/SumList.txt" "Lab11/SumList.out"
+
+/*
+Store : ((36, 24), nil()),
+((34, 23, 16), 4),
+((35), 0),
+((33, 22), '|'(1:23 2:24)),
+((30, 20), '|'(1:21 2:22)),
+((28, 19, 14), 2),
+((29), 7),
+((27, 18), '|'(1:19 2:20)),
+((25, 17, 13), 1),
+((26), 9),
+((12), '|'(1:17 2:18)),
+((8), proc(["L","EXU1"],[local ["C","Go"] [local ["NCU2"] [NCU2 = 0,{NewCell NCU2 C}],Go = proc {$ L} [case L of '|'(1:X 2:Xs) then [local ["SCU2","GarbU2"] [local ["EXU3","EXU4"] [{Exchange C EXU3 EXU3},EXU4 = X,"IntPlus" "EXU3" "EXU4" "SCU2"],{Exchange C GarbU2 SCU2}],local ["EXU2"] [EXU2 = Xs,"Go" "EXU2"]] else [skip]],local ["EXU2"] [EXU2 = L,"Go" "EXU2"],{Exchange C EXU1 EXU1}]],[("IntPlus",1)])),((9), proc(["L","EXU1"],[case L of '|'(1:X 2:Xs) then [local ["EXU2","EXU3"] [EXU2 = X,local ["EXU5"] [EXU5 = Xs,"SumList" "EXU5" "EXU3"],"IntPlus" "EXU2" "EXU3" "EXU1"]] else [case L of nil() then [EXU1 = 0] else [skip]]],[("SumList",9),("IntPlus",1)])),
+((10), 10),((11), Unbound),
+((1), Primitive Operation),
+((2), Primitive Operation),
+((3), Primitive Operation),
+((4), Primitive Operation),
+((5), Primitive Operation),
+((6), Primitive Operation),
+((7), Primitive Operation)
+
+Mutable Store: Empty
+Current Environment : ("SumListS" -> 8, "SumList" -> 9, "Out1" -> 10, "Out2" -> 11, "IntPlus" -> 1, "IntMinus" -> 2, "Eq" -> 3, "GT" -> 4, "LT" -> 5, "Mod" -> 6, "IntMultiply" -> 7)
+Stack : ""
+*/
+
+/*
+Store : ((11, 44), 10),
+((48, 24), nil()),
+((45, 46, 39), 6),
+((47, 23, 16), 4),
+((43, 22), '|'(1:23 2:24)),
+((40, 41, 34), 3),
+((42, 21, 15), 3),
+((38, 20), '|'(1:21 2:22)), 
+((35, 36, 29), 1),
+((37, 19, 14), 2),
+((33, 18), '|'(1:19 2:20)),
+((30, 31, 27), 0),
+((32, 17, 13), 1),
+((28, 12), '|'(1:17 2:18)),
+((25), Cell 1),
+((26), proc(["L"],[case L of '|'(1:X 2:Xs) then [local ["SCU2","GarbU2"] [local ["EXU3","EXU4"] [{Exchange C EXU3 EXU3},EXU4 = X,"IntPlus" "EXU3" "EXU4" "SCU2"],{Exchange C GarbU2 SCU2}],local ["EXU2"] [EXU2 = Xs,"Go" "EXU2"]] else [skip]],[("C",25),("IntPlus",1),("Go",26)])),
+((8), proc(["L","EXU1"],[local ["C","Go"] [local ["NCU2"] [NCU2 = 0,{NewCell NCU2 C}],Go = proc {$ L} [case L of '|'(1:X 2:Xs) then [local ["SCU2","GarbU2"] [local ["EXU3","EXU4"] [{Exchange C EXU3 EXU3},EXU4 = X,"IntPlus" "EXU3" "EXU4" "SCU2"],{Exchange C GarbU2 SCU2}],local ["EXU2"] [EXU2 = Xs,"Go" "EXU2"]] else [skip]],local ["EXU2"] [EXU2 = L,"Go" "EXU2"],{Exchange C EXU1 EXU1}]],[("IntPlus",1)])),
+((9), proc(["L","EXU1"],[case L of '|'(1:X 2:Xs) then [local ["EXU2","EXU3"] [EXU2 = X,local ["EXU5"] [EXU5 = Xs,"SumList" "EXU5" "EXU3"],"IntPlus" "EXU2" "EXU3" "EXU1"]] else [case L of nil() then [EXU1 = 0] else [skip]]],[("SumList",9),("IntPlus",1)])), 
+((10), Unbound),
+((1), Primitive Operation),
+((2), Primitive Operation),
+((3), Primitive Operation),
+((4), Primitive Operation),
+((5), Primitive Operation),
+((6), Primitive Operation),
+((7), Primitive Operation)
+
+Mutable Store: (1 -> 11)
+Current Environment : ("SumListS" -> 8, "SumList" -> 9, "Out1" -> 10, "Out2" -> 11, "IntPlus" -> 1, "IntMinus" -> 2, "Eq" -> 3, "GT" -> 4, "LT" -> 5, "Mod" -> 6, "IntMultiply" -> 7)
+Stack : ""
+*/

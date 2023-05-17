@@ -1,0 +1,98 @@
+local FoldLS FoldL Out1 Out2 in
+
+    // Declarative Recursive
+    fun {FoldL Function Value L}            
+        case L
+            of nil then Value
+            [] (X|Xs) then {FoldL Function {Function Value X} Xs}
+        end
+    end
+
+    // Stateful Iterative
+    fun {FoldLS Function Value L} C Go in
+        newCell Value C
+
+        proc {Go L}
+            case L of (X|Xs) then
+                C := {Function @C X}
+                {Go Xs}
+            end
+        end
+
+        {Go L}
+        @C
+    end
+
+    //Out1 = {FoldL fun {$ X Y} (X + Y) end 3 [1 2 3 4]}
+    Out2 = {FoldLS fun {$ X Y} (X + Y) end 3 [1 2 3 4]}
+    skip Browse Out1
+    skip Browse Out2
+    skip Full
+end
+// runFull "stateful" "Lab11/FoldL.txt" "Lab11/FoldL.out"
+
+/*
+Store : ((10, 49), 13), 
+((50, 26), nil()), 
+((54, 52, 25, 18), 4), 
+((53, 51, 42), 9), 
+((48, 41, 34, 27, 12), proc(["X","Y","EXU4"],[local ["EXU5","EXU6"] [EXU5 = X,EXU6 = Y,"IntPlus" "EXU5" "EXU6" "EXU4"]],[("IntPlus",1)])), 
+((43, 24), '|'(1:25 2:26)), 
+((47, 45, 23, 17), 3), 
+((46, 44, 35), 6), 
+((36, 22), '|'(1:23 2:24)), 
+((40, 38, 21, 16), 2), 
+((39, 37, 28), 4), 
+((29, 20), '|'(1:21 2:22)), 
+((33, 31, 19, 15), 1), 
+((32, 30, 13), 3), 
+((14), '|'(1:19 2:20)), 
+((8), proc(["Function","Value","L","EXU1"],[local ["C","Go"] [local ["NCU2"] [NCU2 = Value,{NewCell NCU2 C}],Go = proc {$ L} [case L of '|'(1:X 2:Xs) then [local ["SCU2","GarbU2"] [local ["EXU3","EXU4"] [{Exchange C EXU3 EXU3},EXU4 = X,"Function" "EXU3" "EXU4" "SCU2"],{Exchange C GarbU2 SCU2}],local ["EXU2"] [EXU2 = Xs,"Go" "EXU2"]] else [skip]],local ["EXU2"] [EXU2 = L,"Go" "EXU2"],{Exchange C EXU1 EXU1}]],[])), 
+((9), proc(["Function","Value","L","EXU1"],[case L of nil() then [EXU1 = Value] else [case L of '|'(1:X 2:Xs) then [local ["EXU2","EXU3","EXU4"] [EXU2 = Function,local ["EXU5","EXU6"] [EXU5 = Value,EXU6 = X,"Function" "EXU5" "EXU6" "EXU3"],EXU4 = Xs,"FoldL" "EXU2" "EXU3" "EXU4" "EXU1"]] else [skip]]],[("FoldL",9)])), 
+((11), Unbound), 
+((1), Primitive Operation), 
+((2), Primitive Operation),
+((3), Primitive Operation),
+((4), Primitive Operation),
+((5), Primitive Operation), 
+((6), Primitive Operation),
+((7), Primitive Operation)
+
+Mutable Store: Empty
+Current Environment : ("FoldLS" -> 8, "FoldL" -> 9, "Out1" -> 10, "Out2" -> 11, "IntPlus" -> 1, "IntMinus" -> 2, "Eq" -> 3, "GT" -> 4, "LT" -> 5, "Mod" -> 6, "IntMultiply" -> 7)
+Stack : ""
+*/
+
+/*
+Store : ((11, 52), 13),
+((58, 26), nil()),
+((53, 56, 54, 45), 9), 
+((57, 55, 25, 18), 4),
+((51, 24), '|'(1:25 2:26)),
+((46, 49, 47, 38), 6),
+((50, 48, 23, 17), 3),
+((44, 22), '|'(1:23 2:24)),
+((39, 42, 40, 31), 4),
+((43, 41, 21, 16), 2), 
+((37, 20), '|'(1:21 2:22)),
+((32, 35, 33, 29, 13), 3),
+((36, 34, 19, 15), 1),
+((30, 14), '|'(1:19 2:20)), 
+((27), Cell 1),
+((28), proc(["L"],[case L of '|'(1:X 2:Xs) then [local ["SCU2","GarbU2"] [local ["EXU3","EXU4"] [{Exchange C EXU3 EXU3},EXU4 = X,"Function" "EXU3" "EXU4" "SCU2"],{Exchange C GarbU2 SCU2}],local ["EXU2"] [EXU2 = Xs,"Go" "EXU2"]] else [skip]],[("C",27),("Function",12),("Go",28)])),
+((12), proc(["X","Y","EXU4"],[local ["EXU5","EXU6"] [EXU5 = X,EXU6 = Y,"IntPlus" "EXU5" "EXU6" "EXU4"]],[("IntPlus",1)])), 
+((8), proc(["Function","Value","L","EXU1"],[local ["C","Go"] [local ["NCU2"] [NCU2 = Value,{NewCell NCU2 C}],Go = proc {$ L} [case L of '|'(1:X 2:Xs) then [local ["SCU2","GarbU2"] [local ["EXU3","EXU4"] [{Exchange C EXU3 EXU3},EXU4 = X,"Function" "EXU3" "EXU4" "SCU2"],{Exchange C GarbU2 SCU2}],local ["EXU2"] [EXU2 = Xs,"Go" "EXU2"]] else [skip]],local ["EXU2"] [EXU2 = L,"Go" "EXU2"],{Exchange C EXU1 EXU1}]],[])),
+((9), proc(["Function","Value","L","EXU1"],[case L of nil() then [EXU1 = Value] else [case L of '|'(1:X 2:Xs) then [local ["EXU2","EXU3","EXU4"] [EXU2 = Function,local ["EXU5","EXU6"] [EXU5 = Value,EXU6 = X,"Function" "EXU5" "EXU6" "EXU3"],EXU4 = Xs,"FoldL" "EXU2" "EXU3" "EXU4" "EXU1"]] else [skip]]],[("FoldL",9)])), 
+((10), Unbound),
+((1), Primitive Operation),
+((2), Primitive Operation), 
+((3), Primitive Operation),
+((4), Primitive Operation),
+((5), Primitive Operation),
+((6), Primitive Operation),
+((7), Primitive Operation)
+
+Mutable Store: (1 -> 11)
+Current Environment : ("FoldLS" -> 8, "FoldL" -> 9, "Out1" -> 10, "Out2" -> 11, "IntPlus" -> 1, "IntMinus" -> 2, "Eq" -> 3, "GT" -> 4, "LT" -> 5, "Mod" -> 6, "IntMultiply" -> 7)
+Stack : ""
+*/

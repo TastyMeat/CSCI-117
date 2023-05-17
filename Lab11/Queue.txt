@@ -1,0 +1,55 @@
+local NewQueue Out in
+    fun {NewQueue Capacity}
+        local Content Size Push Pop IsEmpty SlotsAvailable in
+            proc {Push Value} C = @Content NewBack in
+                if (@Size < Capacity) then
+                    case C of (List # Back) then
+                        Size := (@Size + 1)
+                        Back = (Value|NewBack)
+                        Content := (List # NewBack)
+                    end
+                end
+            end
+
+            fun {Pop} C = @Content Ub in
+                if (@Size > 0) then
+                    case C of (List # Back) then
+                        case List of (X|Xs) then
+                            Size := (@Size - 1)
+                            Content := (Xs # Back)
+                            X
+                        end
+                    end
+                end
+            end
+
+            fun {IsEmpty} (@Size == 0) end
+
+            fun {SlotsAvailable} (Capacity - @Size) end 
+            
+            local Ub in
+                newCell (Ub # Ub) Content
+            end
+            newCell 0 Size
+            ops(push:Push pop:Pop isEmpty:IsEmpty avail:SlotsAvailable)
+        end
+    end
+
+    local S Pu Po IsE Av A1 A2 B1 B2 V1 V2 V3 Out in
+        S = {NewQueue 2}
+        S = ops(push:Pu pop:Po isEmpty:IsE avail:Av)
+        B1 = {IsE}
+        A1 = {Av}
+        {Pu 1}
+        {Pu 2}
+        A2 = {Av}
+        {Pu 3}
+        B2 = {IsE}
+        V1 = {Po}
+        V2 = {Po}
+        V3 = {Po}
+        Out = [V1 V2 V3 B1 B2 A1 A2]
+        skip Browse Out   // Out : [ 2  3  Unbound  true()  false()  2  0 ]
+    end
+end
+// runFull "stateful" "Lab11/Queue.txt" "Lab11/Queue.out"

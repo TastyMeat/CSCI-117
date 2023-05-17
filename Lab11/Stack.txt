@@ -1,0 +1,38 @@
+local NewStack S Pu Po IsE B1 B2 V1 V2 V3 Out in
+
+    fun {NewStack}
+        local C Push Pop IsEmpty in
+            proc {Push X} C := (X|@C) end
+
+            fun {Pop}
+                local B = @C in
+                    case B of (X|S1) then 
+                        C := S1
+                        X
+                    end
+                end
+            end
+
+            fun {IsEmpty} (@C == nil) end
+            
+            newCell nil C
+            ops(push:Push pop:Pop isEmpty:IsEmpty)
+        end
+    end
+    
+    S = {NewStack}
+    S = ops(push:Pu pop:Po isEmpty:IsE)
+    B1 = {IsE}
+    {Pu 1}
+    {Pu 2}
+    {Pu 3}
+    B2 = {IsE}
+    V1 = {Po}
+    V2 = {Po}
+    V3 = {Po}
+    Out = [V1 V2 V3 B1 B2]
+    skip Browse Out   // Out : [ 2  3  Unbound  true()  false()  2  0 ]
+    
+end
+
+// runFull "stateful" "Lab11/Stack.txt" "Lab11/Stack.out"

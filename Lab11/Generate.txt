@@ -1,0 +1,36 @@
+local Generate in
+    fun {Generate} C in
+        newCell 0 C
+        fun{$}
+            C := (@C + 1)
+            @C
+        end
+    end
+    
+    local GenF Out1 Out2 Out3 in
+        GenF = {Generate}
+        Out1 = {GenF} // returns 1
+        Out2 = {GenF} // returns 2
+        Out3 = {GenF} // returns 3
+        skip Browse Out1
+        skip Browse Out2
+        skip Browse Out3
+    end
+
+    local Client GenF Sum in
+        GenF = {Generate}
+
+        fun {Client} Value in
+            Value = {GenF}
+            
+            if (Value > 100) 
+            then 0
+            else (Value + {Client})
+            end
+        end
+
+        Sum = {Client}
+        skip Browse Sum
+    end
+end
+// runFull "stateful" "Lab11/Generate.txt" "Lab11/Generate.out"
