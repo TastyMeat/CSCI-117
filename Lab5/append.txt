@@ -4,7 +4,7 @@ local Append L1 L2 Out Reverse Out1 in
    fun {Append Ls Ms}
       case Ls 
       of nil then Ms
-      [] '|'(1:X 2:Lr) then (X|{Append Lr Ms})
+      [] (X|Xs) then (X|{Append Xs Ms})
       end
    end
 
@@ -19,8 +19,7 @@ local Append L1 L2 Out Reverse Out1 in
    fun {Reverse Xs}
       case Xs
       of nil then nil
-      [] '|'(1:X 2:Xr) then
-         {Append {Reverse Xr} [X]}
+      [] (X|Xr) then {Append {Reverse Xr} [X]}
       end
    end
 

@@ -1,6 +1,6 @@
 local Producer OddFilter Consumer in
 
-    Producer = proc {$ N Limit Out}
+    proc {Producer N Limit Out}
         if (N < (Limit + 1)) then T N1 in
             Out = (N|T)
             N1 = (N + 1)
@@ -10,27 +10,23 @@ local Producer OddFilter Consumer in
         end
     end
 
-    OddFilter = proc {$ P Out}
+    proc {OddFilter P Out}
         case P
         of nil then 
             Out = nil
         [] (X|Xs) then Filtered in
             {OddFilter Xs Filtered}
 
-            if ((X mod 2) == 0) then
-                Out = (X|Filtered)
-            else
-                Out = Filtered
+            if ((X mod 2) == 0) then Out = (X|Filtered)
+            else Out = Filtered
             end
         end
     end
 
-    Consumer = fun {$ P} in
+    fun {Consumer P} in
         case P
-        of nil then
-            0
-        [] (X|Xs) then
-            (X + {Consumer Xs})
+        of nil then 0
+        [] (X|Xs) then (X + {Consumer Xs})
         end
     end
 

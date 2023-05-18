@@ -25,7 +25,7 @@ remq (Queue1 xs) | ismt (Queue1 xs) = error "Can't remove an element from an emp
 
 split :: [a] -> (a, [a])
 split [x] = (x, [])
-split (x:xs) = let (y, ys) = split xs in (y, x:ys)
+split (x:xs) = (y, x:ys) where (y, ys) = split xs
 
 {-
 ghci> mtq

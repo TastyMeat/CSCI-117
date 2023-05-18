@@ -12,28 +12,22 @@
 //    runFull "declarative" "fib_oz.txt" "fib_oz.out"
 // after ghci fib_oz.txt and give a brief explanation of each of the stack outputs.
 
-local X Result Fib in
-  Fib = proc {$ X FibSum}
-    local IsZero in
-      {Eq X 0 IsZero}
-      if IsZero then
-        FibSum = 0
-        skip Stack
-      else
-        local IsOne in
-          {Eq X 1 IsOne}
-          if IsOne then
-            FibSum = 1
-          else
-            local X1 X2 Fib1 Fib2 in
-              {IntMinus X 1 X1}
-              {IntMinus X 2 X2}
-              {Fib X1 Fib1}
-              {Fib X2 Fib2}
-              {IntPlus Fib1 Fib2 FibSum}
-            end
-          end
-        end
+local Fib X Result in
+  proc {Fib X FibSum} IsZero in
+    {Eq X 0 IsZero}
+    if IsZero then
+      FibSum = 0
+      skip Stack
+    else IsOne in
+      {Eq X 1 IsOne}
+      if IsOne then
+        FibSum = 1
+      else X1 X2 Fib1 Fib2 in
+        {IntMinus X 1 X1}
+        {IntMinus X 2 X2}
+        {Fib X1 Fib1}
+        {Fib X2 Fib2}
+        {IntPlus Fib1 Fib2 FibSum}
       end
     end
   end

@@ -24,7 +24,7 @@ mtq = Queue2 [] []
 ismt (Queue2 xs ys) = null xs && null ys
 addq x (Queue2 xs ys) = Queue2 (x:xs) ys
 remq (Queue2 xs ys) | ismt (Queue2 xs ys) = error "Can't remove an element from an empty queue" 
-                    | otherwise = case ys of [] -> let (z:zs) = reverse xs in (z, Queue2 [] zs)
+                    | otherwise = case ys of [] -> (z, Queue2 [] zs) where (z:zs) = reverse xs 
                                              (z:zs) -> (z, Queue2 xs zs)
 
 {-
